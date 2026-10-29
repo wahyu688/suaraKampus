@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Notifications\ReportNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class ReportMessageController extends Controller
 {
@@ -25,6 +27,12 @@ class ReportMessageController extends Controller
             'user_id' => $request->user()->id,
             'body' => $validated['body'],
         ]);
+
+        Notification::send($report->handlers(), new ReportNotification(
+            'Pesan baru di #' . $report->code,
+            'Pelapor menambahkan keterangan pada laporan "' . $report->title . '".',
+            route('staff.reports.show', $report, false),
+        ));
 
         return back()->with('success', 'Pesanmu sudah terkirim ke petugas.');
     }

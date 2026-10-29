@@ -122,6 +122,10 @@ Setiap fitur sebaiknya memakai konsep berikut, karena ini yang dinilai:
 **report_messages** (balasan petugas dan pesan mahasiswa)
 - `id`, `report_id`, `user_id`, `body` text, timestamps
 
+**notifications** (bawaan Laravel, `php artisan make:notifications-table`)
+- Diisi lewat `$user->notify(new ReportNotification($judul, $isi, $url))`. Kolom `data` berisi `title`, `body`, `url` (path relatif, bukan URL lengkap).
+- Dikirim saat: laporan baru (ke petugas yang berwenang), pelapor menambah pesan (ke petugas), status diubah dan petugas membalas (ke pelapor). Notifikasi ke petugas tidak menyebut nama pelapor.
+
 ### Relasi Eloquent
 
 - `User` hasMany `Report`
@@ -217,6 +221,7 @@ Desain lengkap ada di file prototipe kelompok: `SuaraKampus-Desktop-Mobile.figcr
 | Detail laporan petugas | `GET /petugas/laporan/{report:code}` | `Staff\ReportController@show` | staff, counselor, admin |
 | Ubah status | `PATCH /petugas/laporan/{report:code}/status` | `Staff\ReportController@updateStatus` | staff, counselor, admin |
 | Balas laporan | `POST /petugas/laporan/{report:code}/pesan` | `Staff\ReportMessageController@store` | staff, counselor, admin |
+| Notifikasi | `GET /notifikasi`, `GET /notifikasi/{id}` (buka + tandai dibaca), `POST /notifikasi/baca-semua` | `NotificationController@index`, `@open`, `@markAllAsRead` | login |
 | Ubah password | `GET/PUT /password` | `Auth\PasswordController@edit`, `@update` | login |
 | Kelola petugas | `GET /admin/petugas`, `GET /admin/petugas/tambah`, `POST /admin/petugas` | `Admin\StaffController@index`, `@create`, `@store` | admin |
 | Kelola kategori | `Route::resource('kategori')` tanpa `show`: `/admin/kategori`, `/tambah`, `/{category}/ubah`, `PUT`, `DELETE` | `Admin\CategoryController` | admin |
@@ -295,4 +300,4 @@ Reset database dengan data contoh: `php artisan migrate:fresh --seed`
 
 ## 14. Belum termasuk (opsional, kalau waktu cukup)
 
-Notifikasi (lonceng), simpan draf, pencarian laporan, dan dashboard statistik admin. Kerjakan setelah semua bagian 13 selesai.
+Simpan draf, pencarian laporan, dan dashboard statistik admin. Kerjakan setelah semua bagian 13 selesai. (Notifikasi lonceng sudah dibuat.)

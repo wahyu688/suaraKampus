@@ -6,8 +6,10 @@ use App\Http\Requests\StoreReportRequest;
 use App\Models\Campus;
 use App\Models\Category;
 use App\Models\Report;
+use App\Notifications\ReportNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class ReportController extends Controller
 {
@@ -103,6 +105,13 @@ class ReportController extends Controller
                 ]);
             }
         }
+
+        // Kabari petugas yang berwenang. Nama pelapor tidak disebut (bisa jadi anonim).
+        Notification::send($report->handlers(), new ReportNotification(
+            'Laporan baru #' . $report->code,
+            $report->title,
+            route('staff.reports.show', $report, false),
+        ));
 
         return redirect()->route('reports.show', $report)
             ->with('success', 'Laporan terkirim! Nomor laporanmu #' . $report->code . '.');

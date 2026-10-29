@@ -34,10 +34,43 @@
         </div>
 
         <div class="d-flex align-items-center gap-2 ms-auto ms-md-0">
-            <button type="button" class="sk-icon-btn @hasSection('mobile_title') d-none d-md-inline-block @endif" aria-label="Notifikasi">
-                <i class="bi bi-bell"></i>
-                <span class="sk-dot"></span>
-            </button>
+            @auth
+                @php
+                    // Data lonceng: jumlah yang belum dibaca + 5 notifikasi terbaru milik user yang login
+                    $unreadCount = auth()->user()->unreadNotifications()->count();
+                    $latestNotifications = auth()->user()->notifications()->take(5)->get();
+                @endphp
+
+                <div class="dropdown @hasSection('mobile_title') d-none d-md-block @endif">
+                    <button type="button" class="sk-icon-btn" data-bs-toggle="dropdown" aria-expanded="false"
+                            aria-label="Notifikasi, {{ $unreadCount }} belum dibaca">
+                        <i class="bi bi-bell"></i>
+                        @if ($unreadCount > 0)
+                            <span class="sk-dot"></span>
+                        @endif
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end p-0 sk-notif-menu">
+                        <div class="sk-notif-head">
+                            <strong>Notifikasi</strong>
+                            @if ($unreadCount > 0)
+                                <form method="POST" action="{{ route('notifications.read-all') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link sk-link p-0 small">Tandai sudah dibaca</button>
+                                </form>
+                            @endif
+                        </div>
+
+                        @forelse ($latestNotifications as $notification)
+                            <x-notification-item :notification="$notification" />
+                        @empty
+                            <p class="text-secondary small text-center py-4 mb-0">Belum ada notifikasi.</p>
+                        @endforelse
+
+                        <a href="{{ route('notifications.index') }}" class="sk-notif-foot">Lihat semua notifikasi</a>
+                    </div>
+                </div>
+            @endauth
 
             @auth
                 <div class="dropdown">

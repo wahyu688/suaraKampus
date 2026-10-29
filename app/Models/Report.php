@@ -76,6 +76,14 @@ class Report extends Model
         return $query;
     }
 
+    // Petugas yang menangani laporan ini: admin, plus konselor (kategori sensitif) atau staff (non-sensitif)
+    public function handlers()
+    {
+        $roles = $this->category->is_sensitive ? ['counselor', 'admin'] : ['staff', 'admin'];
+
+        return User::whereIn('role', $roles)->get();
+    }
+
     // Nama pelapor untuk petugas. Laporan anonim tidak boleh menampilkan nama/NIM.
     protected function reporterName(): Attribute
     {

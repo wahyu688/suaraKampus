@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateReportStatusRequest;
 use App\Models\Report;
+use App\Notifications\ReportNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -76,6 +77,17 @@ class ReportController extends Controller
             'title' => $request->title,
             'note' => $request->note,
         ]);
+
+        // Kabari pelapor
+        $report->user->notify(new ReportNotification(
+            $report->status === 'resolved'
+                ? 'Laporan #' . $report->code . ' selesai'
+                : 'Laporan #' . $report->code . ' sedang diproses',
+            $report->status === 'resolved'
+                ? 'Beri penilaian untuk penanganan laporanmu.'
+                : $request->title . '.',
+            route('reports.show', $report, false),
+        ));
 
         return back()->with('success', 'Status laporan #' . $report->code . ' diperbarui menjadi ' . $report->status_label . '.');
     }
