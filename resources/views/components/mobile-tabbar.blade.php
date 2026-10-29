@@ -21,14 +21,16 @@
         </a>
     @endif
 
-    {{-- Notifikasi belum dibuat (fitur opsional di CLAUDE.md bagian 14) --}}
-    <button type="button" class="sk-tab">
+    {{-- Tamu diarahkan ke halaman login (route notifikasi butuh login) --}}
+    <a href="{{ route('notifications.index') }}" class="sk-tab {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
         <span class="position-relative">
             <i class="bi bi-bell"></i>
-            <span class="sk-dot"></span>
+            @if (auth()->user()?->unreadNotifications()->exists())
+                <span class="sk-dot"></span>
+            @endif
         </span>
         <span>Notifikasi</span>
-    </button>
+    </a>
     <a href="{{ route('help.index') }}" class="sk-tab {{ request()->routeIs('help.index') ? 'active' : '' }}">
         <i class="bi bi-question-circle"></i>
         <span>Bantuan</span>

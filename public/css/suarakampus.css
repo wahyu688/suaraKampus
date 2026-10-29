@@ -1200,6 +1200,81 @@ a.sk-hero-card:hover {
   user-select: all;
 }
 
+/* ---------- Notifikasi ---------- */
+.sk-notif-menu {
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  overflow: hidden;
+  border: 1px solid var(--sk-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 32, 53, 0.18);
+}
+
+.sk-notif-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sk-border);
+}
+
+.sk-notif-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sk-border);
+  color: var(--sk-muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.sk-notif-item strong {
+  color: var(--sk-text);
+  font-size: 15px;
+}
+
+.sk-notif-item small {
+  color: #808080;
+  font-size: 12px;
+}
+
+.sk-notif-item:hover {
+  background: var(--sk-bg);
+  color: var(--sk-muted);
+}
+
+/* belum dibaca: latar biru muda + titik biru */
+.sk-notif-item.is-unread {
+  background: #F5FBFF;
+}
+
+.sk-notif-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: #D5D9DE;
+}
+
+.is-unread .sk-notif-dot {
+  background: var(--sk-primary);
+}
+
+.sk-notif-foot {
+  display: block;
+  padding: 12px;
+  color: var(--sk-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sk-notif-foot:hover {
+  background: var(--sk-bg);
+}
+
 /* ---------- Popup (modal) ---------- */
 .sk-modal {
   padding: 32px;

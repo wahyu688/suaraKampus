@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
+use App\Notifications\ReportNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,12 @@ class ReportMessageController extends Controller
             'user_id' => $request->user()->id,
             'body' => $validated['body'],
         ]);
+
+        $report->user->notify(new ReportNotification(
+            'Laporan #' . $report->code . ' dibalas',
+            $request->user()->name . ' membalas laporanmu.',
+            route('reports.show', $report, false),
+        ));
 
         return back()->with('success', 'Balasan terkirim ke pelapor.');
     }
