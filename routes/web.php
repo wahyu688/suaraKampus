@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -54,9 +55,16 @@ Route::middleware(['auth', 'role:staff,counselor,admin'])->prefix('petugas')->na
     Route::post('/laporan/{report:code}/pesan', [StaffReportMessageController::class, 'store'])->name('reports.messages.store');
 });
 
-// Admin: kelola akun petugas
+// Admin: kelola akun petugas dan kategori
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/petugas', [StaffController::class, 'index'])->name('staff.index');
     Route::get('/petugas/tambah', [StaffController::class, 'create'])->name('staff.create');
     Route::post('/petugas', [StaffController::class, 'store'])->name('staff.store');
+
+    // Satu baris = 6 route CRUD (index, create, store, edit, update, destroy).
+    // URL memakai "kategori", nama route memakai "categories" (admin.categories.index, dst.)
+    Route::resource('kategori', CategoryController::class)
+        ->except('show')
+        ->names('categories')
+        ->parameters(['kategori' => 'category']);
 });

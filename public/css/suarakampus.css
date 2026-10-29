@@ -1175,6 +1175,10 @@ a.sk-hero-card:hover {
   color: var(--sk-primary);
 }
 
+.sk-form-narrow {
+  max-width: 680px;
+}
+
 /* ---------- Password sementara (Kelola Petugas) ---------- */
 .sk-temp-password {
   padding: 20px 24px;
