@@ -113,8 +113,9 @@ class ReportController extends Controller
             route('staff.reports.show', $report, false),
         ));
 
+        // Flash "report_submitted" memunculkan popup "Laporan terkirim!" di halaman detail
         return redirect()->route('reports.show', $report)
-            ->with('success', 'Laporan terkirim! Nomor laporanmu #' . $report->code . '.');
+            ->with('report_submitted', $report->code);
     }
 
     // Detail laporan (dipakai di mobile dan sebagai link langsung)

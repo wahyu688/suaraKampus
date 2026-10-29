@@ -231,7 +231,8 @@ Detail perilaku yang perlu ditiru dari prototipe:
 - **Beranda:** klik kartu kategori membuka `/laporan/buat?kategori={slug}` dengan kategori itu sudah terpilih.
 - **Laporan Saya:** tab Semua / Menunggu / Diproses / Selesai memakai query string `?status=`, dan setiap tab menampilkan jumlahnya. Di desktop, klik kartu menampilkan detail di panel kanan lewat `?laporan={code}`. Di mobile, klik kartu membuka halaman detail.
 - **Form laporan:** chip kategori adalah `radio` yang diberi gaya, toggle anonim adalah `checkbox`. Kalau validasi gagal, isian lama tetap terisi lewat `old()`.
-- **Setelah kirim:** redirect ke detail laporan dengan flash message "Laporan terkirim! Nomor laporanmu #BN-XXXX."
+- **Setelah kirim:** redirect ke detail laporan dengan flash `report_submitted`, yang memunculkan popup "Laporan terkirim!" berisi nomor laporan (sesuai prototipe).
+- **Flash message** (`success` / `error`) tampil sebagai toast navy di bawah layar (komponen `<x-flash>`). Toast sukses hilang sendiri setelah 4,5 detik; toast error tetap tampil sampai ditutup.
 - **Bantuan:** FAQ memakai elemen `<details>`/`<summary>`, jadi tidak perlu JavaScript.
 
 ## 10. Validasi (Form Request)
