@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
+    // Memungkinkan Report::factory() untuk membuat data palsu (dipakai seeder demo dan tes)
+    use HasFactory;
+
     // Nilai status di database => label yang dilihat pengguna
     public const STATUS_LABELS = [
         'pending' => 'Menunggu',
