@@ -23,7 +23,8 @@
             @if (auth()->user()?->isStaff())
                 <a class="nav-link {{ request()->routeIs('staff.*') ? 'active' : '' }}" href="{{ route('staff.reports.index') }}">Laporan Masuk</a>
                 @if (auth()->user()->role === 'admin')
-                    <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">Kelola Petugas</a>
+                    <a class="nav-link {{ request()->routeIs('admin.staff.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">Petugas</a>
+                    <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">Kategori</a>
                 @endif
             @else
                 <a class="nav-link {{ request()->routeIs('reports.create') ? 'active' : '' }}" href="{{ route('reports.create') }}">Buat Laporan</a>
@@ -57,6 +58,9 @@
                         @if (auth()->user()->role === 'admin')
                             <a class="dropdown-item" href="{{ route('admin.staff.index') }}">
                                 <i class="bi bi-people me-2"></i>Kelola Petugas
+                            </a>
+                            <a class="dropdown-item" href="{{ route('admin.categories.index') }}">
+                                <i class="bi bi-tags me-2"></i>Kelola Kategori
                             </a>
                         @endif
                         <a class="dropdown-item" href="{{ route('password.edit') }}">

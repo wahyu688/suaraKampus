@@ -219,6 +219,7 @@ Desain lengkap ada di file prototipe kelompok: `SuaraKampus-Desktop-Mobile.figcr
 | Balas laporan | `POST /petugas/laporan/{report:code}/pesan` | `Staff\ReportMessageController@store` | staff, counselor, admin |
 | Ubah password | `GET/PUT /password` | `Auth\PasswordController@edit`, `@update` | login |
 | Kelola petugas | `GET /admin/petugas`, `GET /admin/petugas/tambah`, `POST /admin/petugas` | `Admin\StaffController@index`, `@create`, `@store` | admin |
+| Kelola kategori | `Route::resource('kategori')` tanpa `show`: `/admin/kategori`, `/tambah`, `/{category}/ubah`, `PUT`, `DELETE` | `Admin\CategoryController` | admin |
 
 Detail perilaku yang perlu ditiru dari prototipe:
 
@@ -264,7 +265,8 @@ Buat `DatabaseSeeder` yang memanggil seeder untuk kampus, kategori, pengguna, da
   - `BN-2455` Lampu koridor mati di lantai 2 — Keamanan Kampus, Syahdan, **Diproses**
   - `BN-2410` Konflik pembagian tugas kelompok — Konflik Antar Mahasiswa, **anonim**, **Selesai**, rating 5
   - `BN-2388` Wastafel toilet lantai 3 bocor — Fasilitas Rusak, Kijang, **Selesai**
-- Pakai factory untuk data tambahan kalau perlu menguji pagination.
+- Pakai factory untuk data tambahan kalau perlu menguji pagination: `ReportFactory`, dijalankan lewat `php artisan db:seed --class=DemoPaginationSeeder` (25 laporan palsu milik mahasiswa demo; tidak ikut `DatabaseSeeder`).
+- Kategori yang sudah dipakai laporan tidak bisa dihapus dari Kelola Kategori.
 
 ## 12. Menjalankan proyek
 
