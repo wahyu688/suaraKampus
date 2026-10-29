@@ -1,0 +1,1316 @@
+:root {
+  --sk-primary: #007FCC;
+  --sk-primary-light: #0097DA;
+  --sk-primary-hover: #006BAD;
+  --sk-accent: #F3931B;
+  --sk-navy: #07314A;
+  --sk-navy-card: #0B4466;
+  --sk-tint: #E0F3FE;
+  --sk-bg: #F5F7FA;
+  --sk-border: #E3E7EB;
+  --sk-input-border: #D5D9DE;
+  --sk-text: #212121;
+  --sk-muted: #5E5E5E;
+  --sk-success: #1E9E5A;
+  --sk-danger: #D93025;
+  --sk-hero-gradient: linear-gradient(115deg, #007FCC 0%, #56C6F2 100%);
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--sk-bg);
+  color: var(--sk-text);
+}
+
+.sk-container {
+  max-width: 1280px;
+}
+
+/* ---------- Navbar ---------- */
+.sk-navbar {
+  height: 76px;
+}
+
+.sk-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--sk-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.sk-logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--sk-primary);
+}
+
+.sk-logo-text span {
+  color: var(--sk-accent);
+}
+
+.sk-navbar .nav-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sk-text);
+}
+
+.sk-navbar .nav-link:hover,
+.sk-navbar .nav-link.active {
+  color: var(--sk-primary);
+}
+
+.sk-icon-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sk-bg);
+  color: var(--sk-text);
+  font-size: 18px;
+}
+
+/* titik oranye tanda ada notifikasi baru */
+.sk-dot {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--sk-accent);
+}
+
+.sk-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sk-tint);
+  color: var(--sk-primary);
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Page header ---------- */
+.sk-page-header {
+  background: #fff;
+  border-bottom: 1px solid var(--sk-border);
+  padding: 28px 0;
+}
+
+.sk-page-header .breadcrumb {
+  font-size: 13px;
+}
+
+.sk-page-header .breadcrumb-item.active {
+  font-weight: 600;
+}
+
+.sk-page-header .breadcrumb a {
+  color: var(--sk-muted);
+  text-decoration: none;
+}
+
+.sk-page-header .breadcrumb-item.active {
+  color: var(--sk-primary);
+}
+
+.sk-page-header h1 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.sk-page-header p {
+  color: var(--sk-muted);
+}
+
+/* ---------- Kartu ---------- */
+.sk-card {
+  background: #fff;
+  border: 1px solid var(--sk-border);
+  border-radius: 12px;
+}
+
+/* ---------- Tombol (bentuk pil, teks kapital) ---------- */
+.btn-sk {
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.btn-sk-primary {
+  background: var(--sk-primary);
+  border: 1px solid var(--sk-primary);
+  color: #fff;
+}
+
+.btn-sk-primary:hover,
+.btn-sk-primary:focus-visible {
+  background: var(--sk-primary-hover);
+  border-color: var(--sk-primary-hover);
+  color: #fff;
+}
+
+.btn-sk-outline {
+  background: #fff;
+  border: 1px solid var(--sk-primary);
+  color: var(--sk-primary);
+}
+
+.btn-sk-outline:hover,
+.btn-sk-outline:focus-visible {
+  background: var(--sk-tint);
+  color: var(--sk-primary);
+}
+
+.btn-sk-sm {
+  padding: 8px 20px;
+  font-size: 13px;
+}
+
+/* ---------- Form ---------- */
+.sk-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.sk-input {
+  height: 48px;
+  border: 1px solid var(--sk-input-border);
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.sk-input:focus {
+  border-color: var(--sk-primary);
+  box-shadow: 0 0 0 3px rgba(0, 127, 204, 0.15);
+}
+
+.form-check-input:checked {
+  background-color: var(--sk-primary);
+  border-color: var(--sk-primary);
+}
+
+/* ---------- Halaman login / daftar ---------- */
+.sk-auth-card {
+  max-width: 440px;
+}
+
+.sk-auth-card h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.sk-link {
+  color: var(--sk-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sk-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Flash message ---------- */
+.sk-flash {
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* ---------- Dropdown akun ---------- */
+.sk-avatar-btn {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.sk-account-menu {
+  min-width: 230px;
+}
+
+.sk-avatar-btn:focus-visible .sk-avatar {
+  outline: 2px solid var(--sk-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Tab bar mobile ---------- */
+.sk-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  display: flex;
+  padding: 6px 8px calc(8px + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid var(--sk-border);
+  box-shadow: 0 -4px 16px rgba(0, 32, 53, 0.08);
+}
+
+.sk-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 0;
+  background: none;
+  color: var(--sk-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sk-tab .bi {
+  font-size: 22px;
+}
+
+.sk-tab.active {
+  color: var(--sk-primary);
+}
+
+.sk-tab .sk-dot {
+  top: 2px;
+  right: -3px;
+}
+
+.sk-fab {
+  width: 46px;
+  height: 46px;
+  margin-top: -14px;
+  border-radius: 50%;
+  background: var(--sk-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 127, 204, 0.35);
+}
+
+.sk-tab-lapor .bi {
+  font-size: 20px;
+}
+
+.sk-mobile-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Beri ruang supaya isi halaman tidak tertutup tab bar */
+@media (max-width: 767.98px) {
+  body {
+    padding-bottom: 72px;
+  }
+
+  /* Form dan detail laporan di HP tampil putih penuh tanpa bingkai kartu, seperti di design */
+  .sk-mobile-flat {
+    margin: -1.5rem -0.75rem 0;
+    padding: 20px 16px !important;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+.btn-sk-light {
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--sk-primary);
+}
+
+.btn-sk-light:hover,
+.btn-sk-light:focus-visible {
+  background: var(--sk-tint);
+  color: var(--sk-primary);
+}
+
+.btn-sk-ghost {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.btn-sk-ghost:hover,
+.btn-sk-ghost:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.btn-sk-accent {
+  background: var(--sk-accent);
+  border: 1px solid var(--sk-accent);
+  color: #fff;
+}
+
+.btn-sk-accent:hover,
+.btn-sk-accent:focus-visible {
+  background: #DC8210;
+  border-color: #DC8210;
+  color: #fff;
+}
+
+/* ---------- Badge status ---------- */
+.sk-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sk-badge-pending   { color: #C96F00; background: #FFF1DF; }
+.sk-badge-in_progress { color: #007FCC; background: #E0F3FE; }
+.sk-badge-resolved  { color: #1E9E5A; background: #E3F6EC; }
+.sk-badge-cancelled { color: #5E5E5E; background: #F1F3F6; }
+.sk-badge-anon      { color: #C96F00; background: #FFF1DF; }
+
+/* ---------- Ikon dalam lingkaran ---------- */
+.sk-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sk-tint);
+  color: var(--sk-primary);
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sk-icon-circle.is-orange {
+  background: #FFF1DF;
+  color: #C96F00;
+}
+
+/* ---------- Judul section ---------- */
+.sk-eyebrow {
+  margin-bottom: 6px;
+  color: #808080;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sk-section-title {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.sk-section-title strong {
+  font-weight: 800;
+}
+
+.text-accent {
+  color: var(--sk-accent) !important;
+}
+
+/* ---------- Hero beranda ---------- */
+.sk-hero {
+  background: var(--sk-hero-gradient);
+  color: #fff;
+  padding: 72px 0;
+}
+
+.sk-hero-tag {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sk-hero-title {
+  max-width: 620px;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sk-hero-text {
+  max-width: 560px;
+  margin: 20px 0 32px;
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.sk-hero-card {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--sk-text);
+  text-decoration: none;
+  box-shadow: 0 16px 40px rgba(0, 53, 87, 0.18);
+}
+
+a.sk-hero-card:hover {
+  color: var(--sk-text);
+}
+
+.sk-meta {
+  color: #808080;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sk-hero-card-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.sk-hero-card-sub {
+  color: var(--sk-muted);
+  font-size: 14px;
+}
+
+.sk-track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--sk-border);
+  overflow: hidden;
+}
+
+.sk-track-fill {
+  height: 100%;
+  background: var(--sk-primary);
+}
+
+.sk-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #9B9B9B;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sk-steps .is-done {
+  color: var(--sk-primary);
+}
+
+/* ---------- Statistik ---------- */
+.sk-stat {
+  height: 100%;
+  padding: 24px;
+  border: 1px solid var(--sk-border);
+  border-radius: 12px;
+  background: #F5F9FC;
+}
+
+.sk-stat strong {
+  display: block;
+  color: var(--sk-primary);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sk-stat span {
+  color: var(--sk-muted);
+  font-size: 14px;
+}
+
+/* ---------- Kartu kategori ---------- */
+.sk-category-card {
+  display: block;
+  height: 100%;
+  padding: 24px;
+  color: var(--sk-text);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.sk-category-card:hover,
+.sk-category-card:focus-visible {
+  border-color: var(--sk-primary);
+  box-shadow: 0 6px 18px rgba(0, 127, 204, 0.1);
+  color: var(--sk-text);
+}
+
+/* Versi untuk petugas: hanya informasi, tidak bisa diklik */
+.sk-category-card.is-static:hover {
+  border-color: var(--sk-border);
+  box-shadow: none;
+}
+
+.sk-category-card.is-sensitive .sk-icon-circle {
+  background: #FFF1DF;
+  color: #C96F00;
+}
+
+.sk-category-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sk-category-card p {
+  color: var(--sk-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sk-category-link {
+  color: var(--sk-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ---------- Cara kerja ---------- */
+.sk-how {
+  background: linear-gradient(180deg, var(--sk-navy) 0%, #052536 100%);
+}
+
+.sk-how-card {
+  height: 100%;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--sk-navy-card);
+}
+
+.sk-how-number {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--sk-accent);
+  color: #fff;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sk-how-card h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sk-how-card p {
+  margin-bottom: 0;
+  color: #B9D3E3;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------- FAQ (details/summary) ---------- */
+.sk-faq {
+  margin-bottom: 12px;
+  border: 1px solid var(--sk-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.sk-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* sembunyikan segitiga bawaan browser */
+.sk-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.sk-faq summary .bi {
+  transition: transform 0.2s;
+}
+
+.sk-faq[open] {
+  border: 1.5px solid var(--sk-primary);
+  box-shadow: 0 6px 18px rgba(0, 127, 204, 0.1);
+}
+
+.sk-faq[open] summary {
+  color: var(--sk-primary);
+}
+
+.sk-faq[open] summary .bi {
+  transform: rotate(180deg);
+}
+
+.sk-faq p {
+  margin: -8px 24px 20px;
+  color: var(--sk-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ---------- Sidebar bantuan ---------- */
+.sk-contact {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sk-contact .sk-icon-circle {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.sk-contact strong {
+  display: block;
+  font-size: 14px;
+}
+
+.sk-contact small {
+  color: var(--sk-muted);
+  font-size: 13px;
+}
+
+.sk-urgent-card {
+  border: 1px solid #F7D9AE;
+  border-radius: 12px;
+  background: #FFF1DF;
+}
+
+.sk-urgent-card h2 {
+  color: #A85C00;
+}
+
+.sk-urgent-card p {
+  color: #6B4A1F;
+  font-size: 14px;
+}
+
+.sk-sdg-card {
+  border-radius: 12px;
+  background: var(--sk-navy);
+}
+
+.sk-sdg-card p {
+  color: #B9D3E3;
+  font-size: 14px;
+}
+
+/* ---------- Form buat laporan ---------- */
+.sk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--sk-input-border);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sk-chip .bi {
+  display: none;
+}
+
+.sk-chip:hover {
+  border-color: var(--sk-primary);
+}
+
+/* radio .btn-check disembunyikan Bootstrap; label di sebelahnya yang diberi gaya */
+.btn-check:checked + .sk-chip {
+  border-color: var(--sk-primary);
+  background: var(--sk-tint);
+  color: var(--sk-primary);
+}
+
+.btn-check:checked + .sk-chip .bi {
+  display: inline;
+}
+
+.btn-check:focus-visible + .sk-chip {
+  outline: 2px solid var(--sk-primary);
+  outline-offset: 2px;
+}
+
+.sk-textarea-wrap {
+  position: relative;
+}
+
+.sk-textarea {
+  min-height: 130px;
+  padding-bottom: 32px;
+  border: 1px solid var(--sk-input-border);
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.sk-textarea:focus {
+  border-color: var(--sk-primary);
+  box-shadow: 0 0 0 3px rgba(0, 127, 204, 0.15);
+}
+
+.sk-counter {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  color: #808080;
+  font-size: 12px;
+}
+
+.sk-upload,
+.sk-photo {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  border-radius: 8px;
+}
+
+.sk-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1.5px dashed #9CC9E6;
+  background: #F5FBFF;
+  color: var(--sk-primary);
+  cursor: pointer;
+}
+
+.sk-upload .bi {
+  font-size: 22px;
+}
+
+.sk-upload strong {
+  font-size: 13px;
+}
+
+.sk-upload small {
+  color: var(--sk-muted);
+  font-size: 12px;
+}
+
+.sk-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.sk-photo-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(33, 33, 33, 0.8);
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sk-anon-box {
+  padding: 16px 20px;
+  border: 1px solid #F7D9AE;
+  border-radius: 12px;
+  background: #FFF8EE;
+}
+
+.sk-anon-box small {
+  color: var(--sk-muted);
+}
+
+.sk-switch {
+  width: 44px !important;
+  height: 24px;
+  cursor: pointer;
+}
+
+.sk-icon-sm {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.sk-tips {
+  padding-left: 18px;
+  color: var(--sk-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.sk-privacy-card {
+  border: 1px solid #BFE3FA;
+  border-radius: 12px;
+  background: var(--sk-tint);
+}
+
+.sk-privacy-card h2 {
+  color: var(--sk-navy);
+}
+
+.sk-privacy-card p {
+  color: #2F4A5C;
+  font-size: 14px;
+}
+
+/* ---------- Laporan Saya ---------- */
+.sk-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+/* tab tetap bisa digeser di HP, tapi garis scrollbar-nya disembunyikan */
+.sk-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sk-tab-pill {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border: 1px solid var(--sk-input-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--sk-text);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sk-tab-pill:hover {
+  border-color: var(--sk-primary);
+  color: var(--sk-primary);
+}
+
+.sk-tab-pill.active {
+  border-color: var(--sk-primary);
+  background: var(--sk-primary);
+  color: #fff;
+}
+
+.sk-report-card {
+  margin-bottom: 12px;
+  padding: 16px 18px;
+  transition: border-color 0.15s;
+}
+
+.sk-report-card:hover {
+  border-color: var(--sk-primary);
+}
+
+/* Penanda kartu yang sedang tampil di panel kanan; di HP tidak ada panel kanan */
+@media (min-width: 992px) {
+  .sk-report-card.is-active {
+    border-color: var(--sk-primary);
+    background: #F5FBFF;
+    box-shadow: 0 0 0 1px var(--sk-primary);
+  }
+}
+
+.sk-report-card h3 {
+  margin-bottom: 2px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pagination {
+  --bs-pagination-color: var(--sk-primary);
+  --bs-pagination-active-bg: var(--sk-primary);
+  --bs-pagination-active-border-color: var(--sk-primary);
+  --bs-pagination-focus-box-shadow: 0 0 0 3px rgba(0, 127, 204, 0.2);
+}
+
+/* ---------- Detail laporan ---------- */
+.sk-detail-title {
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sk-tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #F1F3F6;
+  color: #3D3D3D;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* pre-line: baris baru yang diketik pelapor tetap tampil */
+.sk-detail-text {
+  color: #3D3D3D;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.sk-detail-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.sk-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--sk-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sk-back-link:hover {
+  color: var(--sk-primary);
+}
+
+/* ---------- Timeline ---------- */
+.sk-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sk-timeline li {
+  position: relative;
+  padding: 0 0 20px 38px;
+}
+
+/* garis penghubung antar titik */
+.sk-timeline li::before {
+  content: '';
+  position: absolute;
+  top: 26px;
+  bottom: 0;
+  left: 11px;
+  width: 2px;
+  background: var(--sk-border);
+}
+
+.sk-timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.sk-timeline li:last-child::before {
+  display: none;
+}
+
+.sk-timeline li.is-done::before {
+  background: var(--sk-success);
+}
+
+.sk-tl-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.is-done .sk-tl-dot {
+  background: var(--sk-success);
+  color: #fff;
+}
+
+.is-cancelled .sk-tl-dot {
+  background: #9B9B9B;
+}
+
+.is-current .sk-tl-dot {
+  border: 2px solid var(--sk-primary);
+  background: #fff;
+}
+
+.is-current .sk-tl-dot .bi {
+  display: none;
+}
+
+.is-current .sk-tl-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sk-primary);
+}
+
+.is-waiting .sk-tl-dot {
+  border: 2px solid #C9CED4;
+  background: #fff;
+}
+
+.sk-timeline strong {
+  display: block;
+  font-size: 15px;
+}
+
+.is-current strong {
+  color: var(--sk-primary);
+}
+
+.is-waiting strong {
+  color: #9B9B9B;
+}
+
+.sk-timeline small {
+  display: block;
+  color: #808080;
+  font-size: 12px;
+}
+
+.sk-timeline p {
+  margin: 2px 0 0;
+  color: var(--sk-muted);
+  font-size: 14px;
+}
+
+.sk-rating-done {
+  color: var(--sk-accent);
+  font-size: 14px;
+}
+
+.sk-rating-done span {
+  color: var(--sk-muted);
+}
+
+/* ---------- Pesan petugas ---------- */
+.sk-message {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--sk-border);
+  border-radius: 12px;
+  background: var(--sk-bg);
+  font-size: 14px;
+}
+
+.sk-message.is-mine {
+  background: #F5FBFF;
+  border-color: #BFE3FA;
+}
+
+.sk-message-avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--sk-navy);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-mine .sk-message-avatar {
+  background: var(--sk-primary);
+}
+
+.sk-message-name {
+  font-weight: 700;
+}
+
+.sk-message small {
+  color: #808080;
+  font-size: 12px;
+}
+
+/* ---------- Tabel laporan petugas ---------- */
+.sk-table {
+  font-size: 14px;
+}
+
+.sk-table thead th {
+  padding: 12px 16px;
+  background: var(--sk-bg);
+  color: var(--sk-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sk-table td {
+  padding: 14px 16px;
+}
+
+.sk-table tbody tr:hover {
+  background: #F5FBFF;
+}
+
+.sk-table-link {
+  color: var(--sk-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sk-table-link:hover {
+  color: var(--sk-primary);
+}
+
+/* ---------- Password sementara (Kelola Petugas) ---------- */
+.sk-temp-password {
+  padding: 20px 24px;
+  border: 1px solid #F7D9AE;
+  border-radius: 12px;
+  background: #FFF8EE;
+  color: #6B4A1F;
+}
+
+.sk-temp-code {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--sk-text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  user-select: all;
+}
+
+/* ---------- Popup (modal) ---------- */
+.sk-modal {
+  padding: 32px;
+  border: 0;
+  border-radius: 16px;
+}
+
+.btn-sk-danger {
+  background: var(--sk-danger);
+  border: 1px solid var(--sk-danger);
+  color: #fff;
+}
+
+.btn-sk-danger:hover,
+.btn-sk-danger:focus-visible {
+  background: #B8281F;
+  border-color: #B8281F;
+  color: #fff;
+}
+
+.btn-sk-danger-outline {
+  background: #fff;
+  border: 1px solid var(--sk-danger);
+  color: var(--sk-danger);
+}
+
+.btn-sk-danger-outline:hover,
+.btn-sk-danger-outline:focus-visible {
+  background: #FDECEC;
+  color: var(--sk-danger);
+}
+
+.sk-icon-circle.is-danger {
+  width: 64px;
+  height: 64px;
+  background: #FDECEC;
+  color: var(--sk-danger);
+  font-size: 28px;
+}
+
+/* Bintang penilaian: input disusun 5..1 lalu dibalik dengan row-reverse */
+.sk-stars {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 6px;
+  border: 0;
+}
+
+.sk-stars input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sk-stars label {
+  color: #D5D9DE;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.sk-stars input:checked ~ label,
+.sk-stars label:hover,
+.sk-stars label:hover ~ label {
+  color: var(--sk-accent);
+}
+
+.sk-stars input:focus-visible + label {
+  outline: 2px solid var(--sk-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Penyesuaian layar kecil ---------- */
+@media (max-width: 767.98px) {
+  .sk-hero {
+    padding: 40px 0;
+  }
+
+  .sk-hero-title {
+    font-size: 30px;
+  }
+
+  .sk-hero-text {
+    font-size: 16px;
+  }
+
+  .sk-section-title {
+    font-size: 26px;
+  }
+
+  .sk-stat {
+    padding: 16px;
+  }
+
+  .sk-stat strong {
+    font-size: 24px;
+  }
+}
+
+/* ---------- Footer ---------- */
+.sk-footer {
+  background: #052536;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.sk-sdg {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: var(--sk-navy-card);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
