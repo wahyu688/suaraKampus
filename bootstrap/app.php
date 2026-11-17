@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Railway membuka HTTPS di proxy lalu meneruskan ke Laravel lewat HTTP.
+        // Percayai header X-Forwarded-* supaya asset() dan route() memakai https.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
         ]);
