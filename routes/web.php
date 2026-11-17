@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\VerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KtmVerificationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportMessageController;
@@ -38,8 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/notifikasi/{id}', [NotificationController::class, 'open'])->name('notifications.open');
 });
 
+// Verifikasi KTM: hanya untuk mahasiswa
+Route::middleware(['auth', 'role:student'])->prefix('verifikasi-ktm')->name('verification.')->group(function () {
+    Route::get('/', [KtmVerificationController::class, 'show'])->name('show');
+    Route::post('/', [KtmVerificationController::class, 'store'])->name('store');
+    Route::post('/kirim-admin', [KtmVerificationController::class, 'requestReview'])->name('request-review');
+});
+
 // Pelapor (mahasiswa + dosen/staf): semua URL diawali /laporan dan nama route diawali reports.
-Route::middleware(['auth', 'role:student,employee'])->prefix('laporan')->name('reports.')->group(function () {
+// ktm.verified = mahasiswa yang KTM-nya belum terverifikasi diarahkan ke /verifikasi-ktm
+Route::middleware(['auth', 'role:student,employee', 'ktm.verified'])->prefix('laporan')->name('reports.')->group(function () {
     Route::get('/', [ReportController::class, 'index'])->name('index');
     Route::get('/buat', [ReportController::class, 'create'])->name('create');
     Route::post('/', [ReportController::class, 'store'])->name('store');
@@ -65,6 +75,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/petugas', [StaffController::class, 'index'])->name('staff.index');
     Route::get('/petugas/tambah', [StaffController::class, 'create'])->name('staff.create');
     Route::post('/petugas', [StaffController::class, 'store'])->name('staff.store');
+
+    // Verifikasi KTM manual. {user} = route model binding lewat id.
+    Route::get('/verifikasi', [VerificationController::class, 'index'])->name('verifications.index');
+    Route::get('/verifikasi/{user}/foto', [VerificationController::class, 'photo'])->name('verifications.photo');
+    Route::patch('/verifikasi/{user}/setujui', [VerificationController::class, 'approve'])->name('verifications.approve');
+    Route::patch('/verifikasi/{user}/tolak', [VerificationController::class, 'reject'])->name('verifications.reject');
 
     // Satu baris = 6 route CRUD (index, create, store, edit, update, destroy).
     // URL memakai "kategori", nama route memakai "categories" (admin.categories.index, dst.)

@@ -27,10 +27,17 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $isStudent ? 'student' : 'employee',
+            // Mahasiswa wajib verifikasi KTM dulu; dosen/staf langsung aktif
+            'verification_status' => $isStudent ? 'unverified' : 'verified',
         ]);
 
         Auth::login($user);
         $request->session()->regenerate();
+
+        if ($isStudent) {
+            return redirect()->route('verification.show')
+                ->with('success', 'Akun berhasil dibuat. Satu langkah lagi: verifikasi KTM-mu.');
+        }
 
         return redirect()->route('reports.index')
             ->with('success', 'Akun berhasil dibuat. Selamat datang, ' . $user->name . '!');

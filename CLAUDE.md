@@ -76,6 +76,15 @@ Setiap fitur sebaiknya memakai konsep berikut, karena ini yang dinilai:
 - Akun buatan admin mendapat password sementara acak (`must_change_password = true`). Middleware `EnsurePasswordIsChanged` memaksa pemiliknya mengganti password sebelum bisa membuka halaman lain.
 - Login hanya menerima email dengan domain di atas. Email diubah ke huruf kecil sebelum divalidasi.
 
+### Verifikasi KTM (khusus mahasiswa)
+
+- Setelah daftar, mahasiswa berstatus `unverified` dan diarahkan ke `/verifikasi-ktm`. Middleware `ktm.verified` (`EnsureStudentIsVerified`) memblokir semua halaman `/laporan` sampai statusnya `verified`.
+- Foto KTM dibaca **Tesseract OCR** lewat `App\Services\KtmOcr` (dipanggil dengan facade `Process`, bukan package). Lolos kalau NIM akun dan kata "BINUS" terbaca. Gambar dicoba dalam 4 arah putaran.
+- Gagal → boleh foto ulang, maksimal `ktm_max_attempts` (3) kali. Setelah itu, atau kalau mahasiswa menekan "Kirim ke admin", atau kalau Tesseract tidak terpasang, status jadi `pending` dan admin mendapat notifikasi.
+- Admin menyetujui/menolak di `/admin/verifikasi`. Penolakan wajib beralasan dan mereset jumlah percobaan.
+- Foto disimpan di disk **`local`** (`storage/app/private/ktm`), bukan `public`, hanya bisa dibuka admin lewat route `admin.verifications.photo`, dan **dihapus** begitu akun terverifikasi atau ditolak.
+- Dosen/staf (`employee`) dan akun buatan admin tidak perlu verifikasi KTM.
+
 ## 6. Database
 
 ### Tabel
@@ -84,6 +93,8 @@ Setiap fitur sebaiknya memakai konsep berikut, karena ini yang dinilai:
 - `nim` string, nullable, unik. Diisi untuk mahasiswa.
 - `role` enum: `student`, `employee`, `staff`, `counselor`, `admin`. Default `student`.
 - `must_change_password` boolean, default `false`. `true` untuk akun petugas yang baru dibuat admin.
+- `verification_status` enum: `unverified`, `pending`, `verified`, `rejected`. Default `verified`; mahasiswa baru diisi `unverified`.
+- `ktm_path` string nullable, `ktm_attempts` tinyint default 0, `rejection_reason` string nullable, `verified_at` timestamp nullable.
 
 **campuses**
 - `id`, `name`. Isi: Anggrek, Syahdan, Kijang, Alam Sutera, Bekasi, Senayan.
@@ -210,7 +221,8 @@ Desain lengkap ada di file prototipe kelompok: `SuaraKampus-Desktop-Mobile.figcr
 | Bantuan (FAQ) | `GET /bantuan` | `HelpController@index` | publik |
 | Login / Daftar | `GET/POST /login`, `GET/POST /register` | `Auth\LoginController`, `Auth\RegisterController` | tamu |
 | Logout | `POST /logout` | `Auth\LoginController@logout` | login |
-| Laporan Saya | `GET /laporan` | `ReportController@index` | student, employee |
+| Verifikasi KTM | `GET/POST /verifikasi-ktm`, `POST /verifikasi-ktm/kirim-admin` | `KtmVerificationController@show`, `@store`, `@requestReview` | student |
+| Laporan Saya | `GET /laporan` | `ReportController@index` | student (terverifikasi), employee |
 | Buat Laporan | `GET /laporan/buat` | `ReportController@create` | student, employee |
 | Simpan laporan | `POST /laporan` | `ReportController@store` | student, employee |
 | Detail laporan | `GET /laporan/{report:code}` | `ReportController@show` | pemilik |
@@ -224,6 +236,7 @@ Desain lengkap ada di file prototipe kelompok: `SuaraKampus-Desktop-Mobile.figcr
 | Notifikasi | `GET /notifikasi`, `GET /notifikasi/{id}` (buka + tandai dibaca), `POST /notifikasi/baca-semua` | `NotificationController@index`, `@open`, `@markAllAsRead` | login |
 | Ubah password | `GET/PUT /password` | `Auth\PasswordController@edit`, `@update` | login |
 | Kelola petugas | `GET /admin/petugas`, `GET /admin/petugas/tambah`, `POST /admin/petugas` | `Admin\StaffController@index`, `@create`, `@store` | admin |
+| Verifikasi KTM | `GET /admin/verifikasi`, `GET /admin/verifikasi/{user}/foto`, `PATCH .../setujui`, `PATCH .../tolak` | `Admin\VerificationController@index`, `@photo`, `@approve`, `@reject` | admin |
 | Kelola kategori | `Route::resource('kategori')` tanpa `show`: `/admin/kategori`, `/tambah`, `/{category}/ubah`, `PUT`, `DELETE` | `Admin\CategoryController` | admin |
 
 Detail perilaku yang perlu ditiru dari prototipe:
@@ -265,6 +278,7 @@ Buat `DatabaseSeeder` yang memanggil seeder untuk kampus, kategori, pengguna, da
   - `keamanan@binus.edu`, role staff (Keamanan Kampus, membalas BN-2455)
   - `konselor@binus.edu`, role counselor
   - `admin@binus.edu`, role admin
+  - `belumverif@binus.ac.id`, role student, NIM `2702000002`, KTM **menunggu dicek admin** (foto KTM contoh dibuat seeder dengan GD)
 - **5 laporan contoh** milik akun mahasiswa demo, sama dengan prototipe, lengkap dengan riwayat `report_updates` dan pesan petugas:
   - `BN-2481` AC tidak dingin di ruang 702 — Fasilitas Rusak, Anggrek, **Diproses**
   - `BN-2479` Tempat sampah penuh dan berbau di lantai 4 — Kebersihan & Sampah, Anggrek, **Menunggu**
@@ -287,6 +301,10 @@ php artisan serve
 ```
 
 Reset database dengan data contoh: `php artisan migrate:fresh --seed`
+
+**OCR untuk verifikasi KTM** (opsional; tanpa ini KTM langsung masuk antrean admin):
+- macOS: `brew install tesseract` · Windows: installer dari github.com/UB-Mannheim/tesseract, lalu isi `TESSERACT_PATH` di `.env` dengan path `tesseract.exe`
+- Railway: tambah variable `RAILPACK_DEPLOY_APT_PACKAGES=tesseract-ocr tesseract-ocr-eng` (kalau builder-nya Nixpacks: `NIXPACKS_APT_PKGS`). Disk Railway terhapus saat redeploy, jadi foto KTM yang menunggu admin bisa hilang; admin cukup menolak dan meminta upload ulang.
 
 ## 13. Urutan pengerjaan yang disarankan
 

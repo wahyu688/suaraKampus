@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
+            'ktm.verified' => \App\Http\Middleware\EnsureStudentIsVerified::class,
         ]);
 
         // Dijalankan di semua halaman web (bukan hanya route tertentu)
