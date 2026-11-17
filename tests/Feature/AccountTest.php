@@ -33,7 +33,8 @@ class AccountTest extends TestCase
             ->assertSessionHasErrors('nim');
 
         // Huruf besar tetap diterima karena email diubah ke huruf kecil sebelum divalidasi
-        $this->post(route('register'), $this->registerData('Andi.Pratama@BINUS.ac.id'))->assertRedirect(route('reports.index'));
+        // Mahasiswa baru diarahkan ke verifikasi KTM
+        $this->post(route('register'), $this->registerData('Andi.Pratama@BINUS.ac.id'))->assertRedirect(route('verification.show'));
 
         $this->assertDatabaseHas('users', ['email' => 'andi.pratama@binus.ac.id', 'role' => 'student', 'nim' => '2702111111']);
     }
