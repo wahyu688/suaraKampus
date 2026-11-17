@@ -76,6 +76,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/petugas/tambah', [StaffController::class, 'create'])->name('staff.create');
     Route::post('/petugas', [StaffController::class, 'store'])->name('staff.store');
 
+    // Verifikasi KTM manual. {user} = route model binding lewat id.
+    Route::get('/verifikasi', [VerificationController::class, 'index'])->name('verifications.index');
+    Route::get('/verifikasi/{user}/foto', [VerificationController::class, 'photo'])->name('verifications.photo');
+    Route::patch('/verifikasi/{user}/setujui', [VerificationController::class, 'approve'])->name('verifications.approve');
+    Route::patch('/verifikasi/{user}/tolak', [VerificationController::class, 'reject'])->name('verifications.reject');
+
     // Satu baris = 6 route CRUD (index, create, store, edit, update, destroy).
     // URL memakai "kategori", nama route memakai "categories" (admin.categories.index, dst.)
     Route::resource('kategori', CategoryController::class)

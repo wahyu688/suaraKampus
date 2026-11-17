@@ -25,6 +25,7 @@
                 @if (auth()->user()->role === 'admin')
                     <a class="nav-link {{ request()->routeIs('admin.staff.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">Petugas</a>
                     <a class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">Kategori</a>
+                    <a class="nav-link {{ request()->routeIs('admin.verifications.*') ? 'active' : '' }}" href="{{ route('admin.verifications.index') }}">Verifikasi</a>
                 @endif
             @else
                 <a class="nav-link {{ request()->routeIs('reports.create') ? 'active' : '' }}" href="{{ route('reports.create') }}">Buat Laporan</a>
@@ -94,6 +95,9 @@
                             </a>
                             <a class="dropdown-item" href="{{ route('admin.categories.index') }}">
                                 <i class="bi bi-tags me-2"></i>Kelola Kategori
+                            </a>
+                            <a class="dropdown-item" href="{{ route('admin.verifications.index') }}">
+                                <i class="bi bi-person-vcard me-2"></i>Verifikasi KTM
                             </a>
                         @endif
                         <a class="dropdown-item" href="{{ route('password.edit') }}">
