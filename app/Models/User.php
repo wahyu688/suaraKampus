@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -26,6 +27,16 @@ class User extends Authenticatable
         'role',
         'password',
         'must_change_password',
+        'verification_status',
+        'ktm_path',
+        'ktm_attempts',
+        'rejection_reason',
+        'verified_at',
+    ];
+
+    // Nilai default di model, sama dengan default kolom di database
+    protected $attributes = [
+        'verification_status' => 'verified',
     ];
 
     /**
@@ -49,7 +60,44 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'must_change_password' => 'boolean',
+            'verified_at' => 'datetime',
         ];
+    }
+
+    // Hanya mahasiswa yang wajib verifikasi KTM
+    public function needsKtmVerification(): bool
+    {
+        return $this->role === 'student' && $this->verification_status !== 'verified';
+    }
+
+    // Sisa percobaan OCR sebelum harus dicek admin
+    public function remainingKtmAttempts(): int
+    {
+        return max(0, config('suarakampus.ktm_max_attempts') - $this->ktm_attempts);
+    }
+
+    // Foto bisa hilang kalau disk server dihapus (misalnya redeploy Railway)
+    public function hasKtmPhoto(): bool
+    {
+        return $this->ktm_path && Storage::disk('local')->exists($this->ktm_path);
+    }
+
+    // Scope: mahasiswa yang menunggu dicek admin. Dipakai: User::awaitingReview()->get()
+    public function scopeAwaitingReview($query)
+    {
+        return $query->where('role', 'student')->where('verification_status', 'pending');
+    }
+
+    protected function verificationLabel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->verification_status) {
+                'unverified' => 'Belum verifikasi',
+                'pending' => 'Menunggu admin',
+                'verified' => 'Terverifikasi',
+                'rejected' => 'Ditolak',
+            },
+        );
     }
 
     public function reports()

@@ -12,4 +12,10 @@ return [
     // Akun petugas dibuat admin dan boleh memakai salah satu domain ini
     'staff_email_domains' => ['binus.ac.id', 'binus.edu'],
 
+    // Verifikasi KTM: berapa kali OCR boleh dicoba sebelum otomatis dikirim ke admin
+    'ktm_max_attempts' => 3,
+
+    // Lokasi program Tesseract OCR. Kosongkan di .env kalau sudah ada di PATH.
+    'tesseract_path' => env('TESSERACT_PATH', 'tesseract'),
+
 ];
